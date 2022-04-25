@@ -19,13 +19,8 @@ const LibraryService = {
     addBook: (book)  => {
         return axios.post("/books/add", book);
     },
-    editBook: (id,name, category, authorid, availableCopies)  => {
-        return axios.put(`/books/edit/${id}`, {
-            "name": name,
-            "category": category,
-            "authorid": authorid,
-            "availableCopies": availableCopies
-        });
+    editBook: (id,book)  => {
+        return axios.put(`/books/edit/${id}`, book);
     },
     deleteBook: (id) => {
         return axios.delete(`/books/delete/${id}`);

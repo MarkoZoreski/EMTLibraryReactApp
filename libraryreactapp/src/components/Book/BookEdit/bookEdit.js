@@ -7,8 +7,8 @@ const BookEdit = (props) => {
     const navigate = useNavigate();
     const [formData, updateFormData] = React.useState({
         name: "",
-        category: props.categories[0],
-        authorid: props.authors[0].id,
+        category: "",
+        authorid: 0,
         availableCopies: 0
     })
 
@@ -18,13 +18,14 @@ const BookEdit = (props) => {
                 const obj = {
                     name: data.data.name,
                     category: data.data.category,
-                    author: data.data.author.id,
+                    authorid: data.data.author.id,
                     availableCopies: data.data.availableCopies
                 }
                 updateFormData(obj)
             })
     },[])
     const handleChange = (e) => {
+        console.log(e.target.value);
         updateFormData({
             ...formData,
             [e.target.name]: e.target.value.trim()
@@ -33,17 +34,13 @@ const BookEdit = (props) => {
 
     const onFormSubmit = (e) => {
         e.preventDefault();
-        const name = formData.name !== "" ? formData.name : props.book.name;
-        const category = formData.category !== 0 ? formData.category : props.book.category.id;
-        const authorid = formData.authorid !== 0 ? formData.authorid : props.book.authorid;
-        const availableCopies = formData.availableCopies !== 0 ? formData.availableCopies : props.book.availableCopies;
-
-        props.onEditBook(props.book.id, name, category, authorid, availableCopies);
+        const name = formData.name;
+        const category = formData.category;
+        const authorid = formData.authorid;
+        const availableCopies = formData.availableCopies;
+        props.onEditBook(id, name, category, authorid, availableCopies);
         navigate("/books");
     }
-
-    console.log(formData);
-
     return (
         <div className="row mt-5">
             <div className="col-md-5">
@@ -54,7 +51,6 @@ const BookEdit = (props) => {
                                className="form-control"
                                id="name"
                                name="name"
-                               placeholder={props.book.name}
                                value={formData.name}
                                onChange={handleChange}
                         />
@@ -65,7 +61,6 @@ const BookEdit = (props) => {
                                 className="form-control"
                                 id="category"
                                 name="category"
-                                placeholder={props.book.category}
                                 value={formData.category}
                                 onChange={handleChange}>
                             {props.categories.map((term, i) =>
@@ -80,7 +75,6 @@ const BookEdit = (props) => {
                                 className="form-control"
                                 id="authorid"
                                 name="authorid"
-                                placeholder={props.book.authorid}
                                 value={formData.authorid}
                                 onChange={handleChange}>
                             {props.authors.map((term, i) =>
@@ -95,7 +89,6 @@ const BookEdit = (props) => {
                                className="form-control"
                                id="availableCopies"
                                name="availableCopies"
-                               placeholder={props.book.availableCopies}
                                value={formData.availableCopies}
                                onChange={handleChange}
                         />

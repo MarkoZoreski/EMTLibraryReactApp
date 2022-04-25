@@ -103,8 +103,9 @@ class App extends Component {
         });
   }
   editBook = (id, name, category, authorId, availableCopies) => {
-      LibraryService.editBook(id, name, category, authorId, availableCopies)
+      LibraryService.editBook(id,{ name, category, authorId, availableCopies})
         .then(() => this.loadBooks());
+
   }
   getBook = (id) => {
       LibraryService.getBook(id)

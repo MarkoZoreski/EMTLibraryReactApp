@@ -17,7 +17,6 @@ class Books extends React.Component{
         const nextPageOffset = offset + this.state.size;
         const pageCount = Math.ceil(this.props.books.length / this.state.size);
         const books = this.getBooksPage(offset, nextPageOffset);
-        console.log(books, pageCount)
 
         return (
             <div className={"container mm-4 mt-5"}>
@@ -65,13 +64,11 @@ class Books extends React.Component{
     }
     handlePageClick = (data) => {
         let selected = data.selected;
-        console.log(selected)
         this.setState({
             page: selected
         })
     }
     getBooksPage = (offset, nextPageOffset) => {
-        console.log(offset, nextPageOffset)
         return this.props.books.map((term,index) => {
             return (
                 <BookDelete key={index} term={term}
